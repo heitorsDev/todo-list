@@ -1,7 +1,24 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import { useState } from 'react';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+export default function TodoInput({ onAdd }) {
+  const [description, setDescription] = useState("");
+  const API_URL = "https://69037016d0f10a340b244609.mockapi.io/todo/tarefas";
+  const createTask = async () => {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        description: description,
+        done: false
+      }),
+    });
 
-export default function TodoInput() {
+    const data = await response.json();
+    if (onAdd) onAdd(data);
+  };
+
   return (
     <View
       style={{
@@ -13,10 +30,21 @@ export default function TodoInput() {
         alignItems: 'center',
       }}
     >
-      <Text style={{ flex: 1, fontSize: 16, color: '#2e2e2e' }}>
-        Adicione sua tarefa
-      </Text>
-      <Text style={{ fontSize: 22, color: '#9acd32' }}>+</Text>
+      <TextInput
+        value={description}
+        onChangeText={(text) => setDescription(text)}
+        placeholder='Descreva sua tarefa'
+        style={{ flex: 1, fontSize: 16, color: '#2e2e2e' }}
+      />
+      <TouchableOpacity
+        onPress={() => {
+          createTask();
+          setDescription('');
+        }}
+        style={{ paddingHorizontal: 10, justifyContent: 'center', alignItems: 'center' }}
+      >
+        <Text style={{ fontSize: 22, color: '#9acd32' }}>+</Text>
+      </TouchableOpacity>
     </View>
   );
 }

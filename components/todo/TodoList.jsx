@@ -1,15 +1,19 @@
-import React from 'react';
 import { View } from 'react-native';
-import TodoItem from './TodoItem';
+import TodoItem from './TodoItem.jsx';
 
-export default function TodoList() {
+export default function TodoList({ tasks = [], onDelete, onUpdate }) {
   return (
     <View style={{ marginTop: 12 }}>
-      <TodoItem label="Tarefa tal" variant="default" />
-      <TodoItem label="Tarefa tal" variant="danger" />
-      <TodoItem label="Tarefa tal" variant="disabled" />
-      <TodoItem label="Tarefa tal" variant="disabled" />
-      <TodoItem label="Tarefa tal" variant="disabled" />
+      {tasks.map((task) => (
+        <TodoItem
+          key={task.id}
+          label={task.description}
+          done={task.done}
+          id={task.id}
+          handleDeleteTask={onDelete}
+          handleUpdateTask={onUpdate}
+        />
+      ))}
     </View>
   );
 }
