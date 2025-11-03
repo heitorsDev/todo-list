@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Image } from 'react-native';
 
 export default function Sidebar() {
   return (
@@ -27,7 +27,15 @@ export default function Sidebar() {
           elevation: 2,
         }}
       >
-        <Text style={{ fontWeight: '700', color: '#77aa33' }}>T</Text>
+        <Image
+          source={require('../../assets/images/logo.png')}
+          style={{
+            width: 60,
+            height: 60,
+            borderRadius: 14,
+          }}
+          resizeMode="contain"
+        />
       </View>
     </View>
   );
