@@ -38,8 +38,10 @@ export default function TodoInput({ onAdd }) {
       />
       <TouchableOpacity
         onPress={() => {
+          if (description != ''){
           createTask();
           setDescription('');
+        }
         }}
         style={{ paddingHorizontal: 10, justifyContent: 'center', alignItems: 'center' }}
       >
